@@ -1,5 +1,5 @@
-import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Image, StatusBar } from 'react-native';
+import React, { useEffect, useRef } from 'react';
+import { View, Text, TouchableOpacity, StyleSheet, Image, StatusBar, Animated } from 'react-native';
 
 interface LandingPageProps {
   onLoginPress: () => void;
@@ -7,19 +7,51 @@ interface LandingPageProps {
 }
 
 export default function LandingPage({ onLoginPress, onSignUpPress }: LandingPageProps) {
+  // 1. Setup the animation value (starts at scale 1)
+  const pulseAnim = useRef(new Animated.Value(1)).current;
+
+  // 2. Start the infinite loop when screen loads
+  useEffect(() => {
+    Animated.loop(
+      Animated.sequence([
+        // Grow slightly
+        Animated.timing(pulseAnim, {
+          toValue: 1.1, 
+          duration: 800,
+          useNativeDriver: true,
+        }),
+        // Shrink back
+        Animated.timing(pulseAnim, {
+          toValue: 1,
+          duration: 800,
+          useNativeDriver: true,
+        }),
+      ])
+    ).start();
+  }, [pulseAnim]);
+
   return (
     <View style={styles.container}>
       <StatusBar barStyle="dark-content" />
       
       {/* Top Section with Title */}
       <View style={styles.header}>
-        <View style={styles.iconContainer}>
-          {/* Simple CSS Pokeball representation */}
-          <View style={styles.pokeballTop} />
-          <View style={styles.pokeballBottom} />
-          <View style={styles.pokeballCenter} />
-        </View>
-        <Text style={styles.title}>PokeExplorer</Text>
+        <Image 
+          source={{ uri: 'https://sgfoodlifestyle.com/wp-content/uploads/2019/08/pex-logo.png' }} 
+          style={styles.logo}
+          resizeMode="contain"
+        />
+        
+        {/* 3. Apply the Animation to the Title */}
+        <Animated.Text 
+          style={[
+            styles.title, 
+            { transform: [{ scale: pulseAnim }] } // Connects the heartbeat
+          ]}
+        >
+          PokeExplorer
+        </Animated.Text>
+        
         <Text style={styles.subtitle}>Gotta discover 'em all!</Text>
       </View>
 
@@ -54,52 +86,22 @@ const styles = StyleSheet.create({
   },
   header: {
     alignItems: 'center',
-    marginTop: 60,
+    marginTop: 40,
   },
-  iconContainer: {
-    width: 80,
-    height: 80,
-    marginBottom: 20,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  pokeballTop: {
-    position: 'absolute',
-    top: 0,
-    width: 80,
-    height: 40,
-    backgroundColor: '#e3350d',
-    borderTopLeftRadius: 40,
-    borderTopRightRadius: 40,
-  },
-  pokeballBottom: {
-    position: 'absolute',
-    bottom: 0,
-    width: 80,
-    height: 40,
-    backgroundColor: '#f0f0f0',
-    borderBottomLeftRadius: 40,
-    borderBottomRightRadius: 40,
-  },
-  pokeballCenter: {
-    position: 'absolute',
-    width: 24,
-    height: 24,
-    backgroundColor: 'white',
-    borderRadius: 12,
-    borderWidth: 8,
-    borderColor: '#333',
-    zIndex: 10,
+  logo: {
+    width: 350,
+    height: 450,
+    marginBottom: 10,
   },
   title: {
     fontSize: 36,
     fontWeight: '900',
-    color: '#333',
+    color: '#16a134ff', // Maintained your Green color
     marginBottom: 8,
   },
   subtitle: {
     fontSize: 18,
-    color: '#666',
+    color: '#7581b6ff', // Maintained your Blue-ish color
     fontWeight: '500',
   },
   infoContainer: {
@@ -117,11 +119,11 @@ const styles = StyleSheet.create({
     gap: 15,
   },
   loginButton: {
-    backgroundColor: '#e3350d',
+    backgroundColor: '#35bd28ff', // Maintained Green Button
     paddingVertical: 16,
     borderRadius: 12,
     alignItems: 'center',
-    shadowColor: '#e3350d',
+    shadowColor: '#c53b1dff', // Maintained Red Shadow
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.3,
     shadowRadius: 8,
@@ -138,10 +140,10 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     alignItems: 'center',
     borderWidth: 2,
-    borderColor: '#e3350d',
+    borderColor: '#4fb925ff', // Maintained Green Border
   },
   signupText: {
-    color: '#e3350d',
+    color: '#14e30dff', // Maintained Green Text
     fontSize: 18,
     fontWeight: 'bold',
   },

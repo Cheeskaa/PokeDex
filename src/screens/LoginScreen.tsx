@@ -7,15 +7,16 @@ import {
   StyleSheet,
   Alert,
   ActivityIndicator,
-  StatusBar
+  StatusBar,
+  Image 
 } from 'react-native';
-import { signIn, signUp } from '../config/firebase'; // Import helper functions
+import { signIn, signUp } from '../config/firebase'; 
 
 export default function LoginScreen({ navigation }: { navigation: any }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
-  const [isLoginMode, setIsLoginMode] = useState(true); // Toggle between Login and Signup
+  const [isLoginMode, setIsLoginMode] = useState(true); 
 
   const handleAuth = async () => {
     if (!email || !password) {
@@ -35,10 +36,7 @@ export default function LoginScreen({ navigation }: { navigation: any }) {
     setLoading(false);
 
     if (result.success) {
-      // Navigate to the main app (Profile or Home)
-      // For now, we just alert success
-      Alert.alert('Success', `Welcome! You are now ${isLoginMode ? 'logged in' : 'registered'}.`);
-      // navigation.replace('Profile'); // Uncomment when navigation is set up
+       Alert.alert('Success', `Welcome! You are now ${isLoginMode ? 'logged in' : 'registered'}.`);
     } else {
       Alert.alert('Authentication Failed', result.error);
     }
@@ -47,7 +45,15 @@ export default function LoginScreen({ navigation }: { navigation: any }) {
   return (
     <View style={styles.container}>
       <StatusBar barStyle="dark-content" />
+      
       <View style={styles.headerContainer}>
+        {/* LOGO */}
+        <Image 
+          source={{ uri: 'https://sgfoodlifestyle.com/wp-content/uploads/2019/08/pex-logo.png' }} 
+          style={styles.logo}
+          resizeMode="contain"
+        />
+        
         <Text style={styles.title}>PokeExplorer</Text>
         <Text style={styles.subtitle}>Discover. Catch. Learn.</Text>
       </View>
@@ -106,33 +112,42 @@ export default function LoginScreen({ navigation }: { navigation: any }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f5f5f5',
+    backgroundColor: '#ffffff',
     justifyContent: 'center',
     paddingHorizontal: 24,
   },
   headerContainer: {
     alignItems: 'center',
-    marginBottom: 40,
+    marginBottom: 20, 
+  },
+  logo: {
+    // FIXED DIMENSIONS HERE
+    width: 300,  
+    height: 300, 
+    marginBottom: 5,
   },
   title: {
     fontSize: 32,
     fontWeight: 'bold',
-    color: '#e3350d', // Pokemon Red
+    color: '#16a134ff', 
   },
   subtitle: {
     fontSize: 16,
-    color: '#666',
+    color: '#7581b6ff', 
     marginTop: 5,
+    fontWeight: '500',
   },
   formContainer: {
     backgroundColor: 'white',
     padding: 20,
     borderRadius: 15,
-    elevation: 4, // Android shadow
-    shadowColor: '#000', // iOS shadow
+    shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 4,
+    elevation: 4, 
+    borderWidth: 1,
+    borderColor: '#f0f0f0',
   },
   headerText: {
     fontSize: 22,
@@ -142,7 +157,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   input: {
-    backgroundColor: '#f0f0f0',
+    backgroundColor: '#f9f9f9',
     borderRadius: 8,
     padding: 15,
     marginBottom: 15,
@@ -151,11 +166,16 @@ const styles = StyleSheet.create({
     borderColor: '#e0e0e0',
   },
   button: {
-    backgroundColor: '#e3350d',
+    backgroundColor: '#35bd28ff', 
     padding: 15,
     borderRadius: 8,
     alignItems: 'center',
     marginTop: 10,
+    shadowColor: '#c53b1dff', 
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 8,
+    elevation: 5,
   },
   buttonText: {
     color: 'white',
@@ -167,7 +187,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   switchText: {
-    color: '#007AFF',
+    color: '#7581b6ff', 
     fontSize: 14,
+    fontWeight: '600',
   }
 });
