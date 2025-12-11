@@ -1,7 +1,8 @@
-// src/navigation/TabNavigator.tsx
 import React from 'react';
+import { View, StyleSheet, Platform, Animated } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+// CHANGED: Using MaterialCommunityIcons for better, more thematic options
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 // Screens
@@ -16,6 +17,7 @@ import DetailsScreen from '../screens/DetailsScreen';
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
+// --- POKEDEX STACK (Nested Navigation) ---
 function PokedexStack() {
   return (
     <Stack.Navigator initialRouteName="PokedexMain">
@@ -24,52 +26,129 @@ function PokedexStack() {
         component={PokedexScreen}
         options={{ headerShown: false }}
       />
-
       <Stack.Screen
         name="Details"
         component={DetailsScreen}
         options={{
-          title: 'Pokemon Details',
-          headerStyle: { backgroundColor: '#16a134ff' },
+          title: 'Entry Data',
+          headerStyle: { backgroundColor: '#DC0A2D' }, // Classic Pokedex Red
           headerTintColor: '#fff',
+          headerTitleStyle: { fontWeight: '800', fontSize: 20 },
+          headerShadowVisible: false, 
         }}
       />
     </Stack.Navigator>
   );
 }
 
+// --- MAIN TAB NAVIGATOR ---
 export default function TabNavigator() {
   return (
     <Tab.Navigator
       initialRouteName="Home"
       screenOptions={({ route }) => ({
         headerShown: false,
-        tabBarActiveTintColor: '#35bd28ff',
-        tabBarInactiveTintColor: '#777',
-        tabBarStyle: { height: 60, paddingBottom: 6 },
-        tabBarIcon: ({ focused, color, size }) => {
+        tabBarShowLabel: false, // Keep labels hidden for clean look
+        tabBarStyle: styles.floatingTabBar,
+        
+        // Custom Icon Renderer
+        tabBarIcon: ({ focused }) => {
           let iconName = '';
+          let iconColor = focused ? '#ffffff' : '#9CA3AF'; // White if active, Gray if inactive
 
-          if (route.name === 'Home') iconName = 'home-outline';
-          else if (route.name === 'Hunt') iconName = 'search-outline';
-          else if (route.name === 'Pokedex') iconName = 'book-outline';
-          else if (route.name === 'AR') iconName = 'scan-outline';
-          else if (route.name === 'Feed') iconName = 'share-outline';
-          else if (route.name === 'Profile') iconName = 'person-circle-outline';
+          // --- THEMATIC ICON SELECTION (MaterialCommunityIcons) ---
+          switch (route.name) {
+            case 'Home':
+              iconName = focused ? 'pokeball' : 'pokeball'; // It's a Pokemon app, let's use the ball!
+              break;
+            case 'Hunt':
+              iconName = focused ? 'paw' : 'paw-off'; // Tracking paws
+              break;
+            case 'Pokedex':
+              iconName = focused ? 'book-open-page-variant' : 'book-open-page-variant-outline';
+              break;
+            case 'AR':
+              iconName = 'camera-iris';
+              break;
+            case 'Feed':
+              iconName = focused ? 'forum' : 'forum-outline';
+              break;
+            case 'Profile':
+              iconName = 'account-cowboy-hat'; // Fits the "Hunter" theme
+              break;
+            default:
+              iconName = 'help';
+          }
 
-          return <Ionicons name={iconName} size={24} color={color} />;
+          // The "Super Pop" Container
+          return (
+            <View style={[
+              styles.iconContainer, 
+              focused && styles.activeIconContainer
+            ]}>
+              <MaterialCommunityIcons name={iconName} size={26} color={iconColor} />
+            </View>
+          );
         },
       })}
     >
       <Tab.Screen name="Home" component={HomePageScreen} />
       <Tab.Screen name="Hunt" component={HuntScreen} />
-
-      {/* This mounts the stack that contains PokedexMain + Details */}
       <Tab.Screen name="Pokedex" component={PokedexStack} />
-
       <Tab.Screen name="AR" component={ARScreen} />
       <Tab.Screen name="Feed" component={FeedScreen} />
       <Tab.Screen name="Profile" component={ProfileScreen} />
     </Tab.Navigator>
   );
 }
+
+// --- EXCITING STYLES ---
+const styles = StyleSheet.create({
+  floatingTabBar: {
+    position: 'absolute',
+    bottom: 20,
+    left: 16,
+    right: 16,
+    height: 70, // Slightly taller
+    backgroundColor: '#ffffff',
+    borderRadius: 35,
+    borderTopWidth: 0,
+    
+    // Deep Shadow for floating effect
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 10 },
+    shadowOpacity: 0.15,
+    shadowRadius: 10,
+    elevation: 10,
+    
+    paddingHorizontal: 5,
+    paddingBottom: 0, 
+    alignItems: 'center',
+  },
+  iconContainer: {
+    width: 50,
+    height: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 25,
+    backgroundColor: 'transparent', // Transparent when inactive
+  },
+  // THE "POP" EFFECT
+  activeIconContainer: {
+    backgroundColor: '#4CAF50', // Vibrant Hunter Green
+    // Moves up drastically AND scales up
+    transform: [
+        { translateY: -15 },
+        { scale: 1.15 } 
+    ], 
+    
+    // Intense "Glow" Shadow
+    shadowColor: '#4CAF50',
+    shadowOffset: { width: 0, height: 8 },
+    shadowOpacity: 0.6,
+    shadowRadius: 8,
+    elevation: 12,
+    borderWidth: 2,
+    borderColor: '#ffffff', // White border to make it pop off the green
+  }
+});
