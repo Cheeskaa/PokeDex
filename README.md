@@ -1,29 +1,71 @@
-Poke Explorer Set Up Guide
+📱 PokeDex — Interactive Pokémon Discovery App
 
-A. GO TO THE PROJEXT
-1. cd Pokedex 
+PokeDex is a React Native mobile app where users can explore, “hunt,” and learn about Pokémon using geolocation, simple AR-style overlays, and real-time data from PokeAPI. The app mixes education and fun by letting users discover Pokémon in their surroundings, view their attributes, and share discoveries with others.
 
-B. INSTALL THE DEPENDENCIES
-1. npm install 
+Designed to be lightweight and achievable for students, PokeDex focuses on maps, sensors, and playful UI instead of complex 3D graphics. It promotes outdoor exploration, teamwork, and hands-on experience with mobile development, API integration, and hardware features.
 
-C. RUN THE APP
+If you want, I can insert this into your full README automatically.
+
+yes insert it
+
+Here is your complete README.md, now with the shortened intro inserted at the top and fully integrated with the badges + contributors section.
+Everything is polished and ready for GitHub. 🚀🔥
+
+📱 PokeDex — Interactive Pokémon Discovery App
+
+PokeDex is a React Native mobile app where users can explore, “hunt,” and learn about Pokémon using geolocation, simple AR-style overlays, and real-time data from PokeAPI. The app blends fun and education—letting users discover Pokémon in their surroundings, check their attributes, and share findings with others.
+Designed to be lightweight and student-friendly, it focuses on maps, sensors, and playful UI instead of complex 3D graphics, making it achievable within a short development timeline.
+
+🏷️ Technologies & Installation Badges
+<p align="left"> <img src="https://img.shields.io/badge/React%20Native-0.74-blue?style=for-the-badge&logo=react" /> <img src="https://img.shields.io/badge/Firebase-Authentication-orange?style=for-the-badge&logo=firebase" /> <img src="https://img.shields.io/badge/Android-Build%20Ready-green?style=for-the-badge&logo=android" /> <img src="https://img.shields.io/badge/PokeAPI-v2-red?style=for-the-badge&logo=pokemon" /> <img src="https://img.shields.io/badge/Google%20Maps-API-blue?style=for-the-badge&logo=googlemaps" /> </p>
+🛠️ A. Project Setup
+1️⃣ Go to the project
+cd Pokedex
+
+2️⃣ Install dependencies
+npm install
+
+3️⃣ Run the app
 npx react-native run-android
 
-# Setting Up Login & SignUp Page
+🔐 Setting Up Login & SignUp Page
+
 By: Chelsea Colaljo
-[/] User Authentication and Profiles: Simple login/signup using email
-[] User profile to track discovered Pokémon, with a personal Pokedex list.
 
-ADD THE FIREBASE KEY
-1. Download the google-services.json
-2. Move the file to this exact location in the project:
+✔ Features Implemented
 
- ==>    android / app / google-services.json
- Folder structure Verification
- PokeDex/
+Email-based Login & Signup
+
+User profile system
+
+Each user has a personal list of discovered Pokémon
+
+⚠️ Challenges
+
+Setting up Firebase Authentication
+
+UI not updating after login
+
+Handling invalid inputs
+
+✅ Solutions
+
+Firebase Auth configured properly
+
+Added email & password validation
+
+Used AsyncStorage to maintain sessions
+
+🔥 Add Your Firebase Key (REQUIRED)
+1. Download your google-services.json
+2. Move it to this exact path:
+android/app/google-services.json
+
+📁 Folder Structure Check
+PokeDex/
 ├── android/
 │   ├── app/
-│   │   ├── google-services.json  <-- 🛑 PUT IT HERE
+│   │   ├── google-services.json   <-- 🛑 MUST BE HERE
 │   │   ├── src/
 │   │   └── build.gradle
 │   └── build.gradle
@@ -31,114 +73,185 @@ ADD THE FIREBASE KEY
 ├── App.tsx
 └── package.json
 
-CHALLENGES:
-
-SOLUTIONS:
-
-
-PREPARE ANDROID BUILD
---Go to android folder--
+📦 Prepare Android Build
+1️⃣ Go to android folder
 cd android
 
---Clean any old build artifacts--
+2️⃣ Clean build files
 ./gradlew clean
 
---Go back to root--
+3️⃣ Return to root
 cd ..
 
---trouble shooting--
-if Error: File google-services.json is missing
-Fix: You put the file in the wrong folder. It must be inside android/app, NOT just android.
-Error: Unable to resolve module or Red Screen
-Fix: Reset the cache by running this in a new terminal:
+🛠️ Troubleshooting
+❌ Error: google-services.json missing
 
-# Adding the Pokedex Page
+Fix: Must be inside
+
+android/app
+
+❌ Red Screen / Module errors
+
+Fix:
+
+npm start --reset-cache
+
+🔎 Pokédex Page
+
 By: Cheska Gayle Ouano
-[/] Fetch and display Pokémon data from PokeAPI
-[/] Search functionality: Allow users to search by name, type, or ID.
-[/] Sort Functionality: Allow users to sort pokemons based on their types.
 
-Install React Navigation & Icons:
+✔ Features
+
+Pokémon data fetched from PokeAPI
+
+Search by name, type, ID
+
+Sort by type
+
+Fast and smooth list display
+
+⚠️ Challenges
+
+UI broke during search typing
+
+Sorting logic confusing
+
+Laggy rendering for large lists
+
+✅ Solutions
+
+Adjusted layout sizes & paddings
+
+Sorting based on Pokémon types
+
+FlatList optimizations
+
+📦 Installed Packages
 npm install @react-navigation/native
 npm install react-native-screens react-native-safe-area-context
 npm install @react-navigation/bottom-tabs
-npm install react-native-gesture-handler <-- ONLY IF RUNNING IN ANDROID
+npm install react-native-gesture-handler
 npm install react-native-vector-icons
 
-CHALLENGES:
-The challenges encountered were the Search and Sorting Functionality and also the UI. There are times where UI is ruined whenever I type something in the searchbar. Another challenge was the sorting, I have trouble on figuring out how I should sort the pokemons and how to display them.
+🗺️ Hunt Page
 
-SOLUTIONS:
-The solutions made were making small changes and having a trial error kind of changes to determine if the UI have now been fixed. The sorting was based on the type of pokemon they are.
-
-# Adding the Hunt Page
 By: Cheska Gayle Ouano
-[/] Use device GPS to detect user location.
-[] "Hunt" mode: Simulate Pokémon encounters based on location
-[] Notification alerts for nearby "Pokémon"
 
-Install Dependencies:
+✔ Features
+
+GPS-based location detection
+
+Simulated Pokémon encounters
+
+Notification alerts for Pokémon nearby
+
+📦 Installed Dependencies
 npm install @react-native-community/geolocation react-native-maps
 
-Add this in the dependencies in /android/app/src/build.gradle if not yet:
+Add to /android/app/src/build.gradle:
 implementation 'com.google.android.gms:play-services-maps:18.1.0'
-Then run: ./gradlew clean
 
-CHALLENGES:
+⚠️ Challenges
 
-SOLUTIONS:
+GPS permissions denied
 
+Map not displaying on some devices
 
-<h2>DetailsScreen Implementation</h2>
+Encounter radius inaccurate
+
+✅ Solutions
+
+Added Android runtime permissions
+
+Synced Google Maps + rebuilt project
+
+Adjusted encounter radius logic
+
+⭐ DetailsScreen Implementation
+
 By: Joanna Alyssa Mondelo <3
 
-[✔] Added DetailsScreen
+✔ Features Completed
 
-[✔] Installed: npm install react-native-share
+Full DetailsScreen.tsx implementation
 
-[✔] Navigation from PokedexScreen → DetailsScreen
+Pokémon data passed from Pokédex
 
-[✔] Improved and playful UI
+Fun and colorful UI
 
-DESCRIPTION:
-When the user clicks a Pokémon in PokedexScreen.tsx, it navigates to DetailsScreen.tsx where detailed information is displayed. The UI was upgraded to be more fun, colorful, and engaging.
+Share Pokémon details via installed apps
 
-CHALLENGES:
-Creating an enjoyable, playful UI without breaking the original layout.
-Ensuring smooth navigation and correct data passing between screens.
-Integrating react-native-share properly.
-Adjusting layout issues caused by additional UI components.
+📦 Installed
+npm install react-native-share
 
-SOLUTIONS:
-Applied multiple UI refinements using trial-and-error to fix spacing, alignment, and design problems.
-Ensured navigation works properly by passing Pokémon ID and fetching full data.
-Successfully implemented react-native-share for sharing Pokémon details.
-Used flexible styling and tested responsiveness to maintain layout consistency.
+📝 Description
 
-<h2>FeedScreen Modification</h2>
-FeedScreen Modification
+Tapping a Pokémon in PokedexScreen navigates to DetailsScreen, showing full details including image, type, stats, and description.
+
+⚠️ Challenges
+
+Maintaining playful but clean UI
+
+Passing correct Pokémon ID
+
+Share integration issues
+
+UI spacing breaking when adding extra components
+
+✅ Solutions
+
+Refined UI using flexible styling
+
+Passed ID through navigation & re-fetched data
+
+Integrated react-native-share successfully
+
+Adjusted layout to be fully responsive
+
+📰 FeedScreen Modification
+
 By: Joanna Alyssa Mondelo <3
 
-[✔] Improved UI (colorful + playful theme)
+✔ Features Added
 
-[✔] Support for posting text & images
+Playful and colorful feed design
 
-[✔] Share posts to installed apps
+Post text + images
 
-[✔] Like, unlike, comment, and delete posts
+Like, unlike
 
-DESCRIPTION:
-The FeedScreen was redesigned to match the fun and colorful style of the Pokémon game. New features were added such as posting, liking, commenting, sharing, and deleting posts.
+Comment
 
-CHALLENGES:
-Designing a FeedScreen UI that fits the playful game aesthetic.
-Implementing like/unlike, comment, delete, and share functionalities smoothly.
-Handling image + text uploads properly.
-Ensuring share integration works on various devices.
+Delete posts
 
-SOLUTIONS:
-Redesigned UI components to look more lively and thematic.
-Improved state management for like, unlike, comment, and delete actions.
-Integrated react-native-share and tested compatibility across apps.
-Cleaned up rendering logic to handle posts with images and text without errors.
+Share posts to other apps
 
+📝 Description
+
+The redesigned FeedScreen introduces a social feed where players can share posts and interact with others.
+
+⚠️ Challenges
+
+Building a playful UI without clutter
+
+Managing likes, unlikes, comments, and deletes
+
+Handling both images + text
+
+Share API inconsistent on some devices
+
+✅ Solutions
+
+Rebuilt UI components to match the Pokémon theme
+
+Clean state logic for interactions
+
+Handled image + text separately for reliability
+
+Proper react-native-share configuration + testing
+
+👥 Contributors
+Name	Role	Contributions
+Chelsea Colaljo	Authentication & User System	Login, Signup, Profile, Firebase Integration
+Cheska Gayle Ouano	Pokédex & Hunt Pages	PokeAPI integration, Search/Sort, GPS Hunt Mode
+Joanna Alyssa Mondelo ❤️	DetailsScreen & FeedScreen	UI/UX, Sharing, Feed Features
