@@ -172,5 +172,7 @@ The redesigned FeedScreen introduces a social feed where players can share posts
 - Handled image + text separately for reliability
 - Proper react-native-share configuration + testing
 
+<img width="670" height="641" alt="image" src="https://github.com/user-attachments/assets/49c97154-d1bc-40c6-a998-996a481251e6" />
+
 <h1>👥 Contributors</h1>
 Chelsea Colaljo |	Cheska Gayle Ouano | Joanna Alyssa Mondelo ❤️	
