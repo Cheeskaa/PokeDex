@@ -73,9 +73,9 @@ const INITIAL_STATIC_POSTS: FeedPost[] = [
   {
     id: 'static-1',
     username: 'Professor Oak',
-    handle: '@kanto_research', 
+    handle: '@kanto_research',
     content: 'Alert: Reports of a Shiny Gyarados at the Lake of Rage! 🔴',
-    timestamp: Date.now() - 3600000, 
+    timestamp: Date.now() - 3600000,
     likes: 5420,
     imageUrl: 'https://media.giphy.com/media/ydU6Wf0rCqO52/giphy.gif',
     isStatic: true,
@@ -84,9 +84,9 @@ const INITIAL_STATIC_POSTS: FeedPost[] = [
   {
     id: 'static-2',
     username: 'Cynthia',
-    handle: '@sinnoh_champ', 
+    handle: '@sinnoh_champ',
     content: 'Garchomp is restless today. I sense a distortion nearby.',
-    timestamp: Date.now() - 7200000, 
+    timestamp: Date.now() - 7200000,
     likes: 8900,
     imageUrl: 'https://img.pokemondb.net/artwork/large/garchomp.jpg',
     isStatic: true,
@@ -98,7 +98,7 @@ export default function HomePageScreen({ navigation }: any) {
   const [userStats, setUserStats] = useState<UserStats | null>(null);
   const [nearYouList, setNearYouList] = useState<Pokemon[]>([]);
   const [missions, setMissions] = useState<Mission[]>([]);
-  const [feedPosts, setFeedPosts] = useState<FeedPost[]>([]); 
+  const [feedPosts, setFeedPosts] = useState<FeedPost[]>([]);
   const [greeting, setGreeting] = useState("Welcome");
 
   // --- LOAD DATA ---
@@ -111,15 +111,15 @@ export default function HomePageScreen({ navigation }: any) {
     // Simulate fetching user stats
     setTimeout(() => {
       setUserStats({
-        pokemonImageUri: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png', 
-        totalCaught: 142,         
+        pokemonImageUri: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png',
+        totalCaught: 142,
         pokedexCount: 300,
-        currentPoints: 2450,      
+        currentPoints: 2450,
         pointsToNextLevel: 3000,
-        trainerName: "WPlayer", 
+        trainerName: "WPlayer",
         trainerLevel: 12,
-        streakDays: 5,            
-        kilometersWalked: 12.4    
+        streakDays: 5,
+        kilometersWalked: 12.4
       });
 
       setMissions([
@@ -212,15 +212,15 @@ export default function HomePageScreen({ navigation }: any) {
           {/* Avatar based on logic */}
           <View style={styles.feedAvatarContainer}>
             {item.isStatic ? (
-                <Image 
-                  source={{ uri: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Pok%C3%A9_Ball_icon.svg/1024px-Pok%C3%A9_Ball_icon.svg.png' }} 
-                  style={{ width: 24, height: 24 }} 
+                <Image
+                  source={{ uri: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Pok%C3%A9_Ball_icon.svg/1024px-Pok%C3%A9_Ball_icon.svg.png' }}
+                  style={{ width: 24, height: 24 }}
                 />
             ) : (
                 <Ionicons name="person" size={20} color="#555" />
             )}
           </View>
-          
+
           <View style={{flex: 1}}>
             <View style={{flexDirection:'row', alignItems:'center'}}>
               <Text style={styles.feedUsername} numberOfLines={1}>{item.username}</Text>
@@ -232,7 +232,7 @@ export default function HomePageScreen({ navigation }: any) {
 
         {/* Feed Content */}
         <Text style={styles.feedContent} numberOfLines={3}>{item.content}</Text>
-        
+
         {item.imageUrl && (
           <Image source={{ uri: item.imageUrl }} style={styles.feedImage} resizeMode="cover" />
         )}
@@ -276,7 +276,7 @@ export default function HomePageScreen({ navigation }: any) {
   const MissionItem = ({ item }: { item: Mission }) => {
     const percent = Math.min((item.progress / item.goal) * 100, 100);
     const isComplete = item.progress >= item.goal;
-    
+
     return (
       <View style={styles.missionCard}>
          <View style={[styles.missionIcon, { backgroundColor: item.color + '20' }]}>
@@ -309,15 +309,15 @@ export default function HomePageScreen({ navigation }: any) {
 
       {/* --- HEADER BACKGROUND --- */}
       <View style={styles.greenHeader}>
-         <Image 
-            source={{ uri: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/1.png' }} 
-            style={styles.headerBgImage} 
+         <Image
+            source={{ uri: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/1.png' }}
+            style={styles.headerBgImage}
             blurRadius={2}
          />
       </View>
 
       <ScrollView contentContainerStyle={{ paddingBottom: 100 }} showsVerticalScrollIndicator={false}>
-        
+
         {/* --- HEADER --- */}
         <View style={styles.headerContent}>
           <View>
@@ -381,7 +381,7 @@ export default function HomePageScreen({ navigation }: any) {
               <Text style={styles.potdName}>Snorlax</Text>
               <Text style={styles.potdSub}>Spawn Rate: +15% today</Text>
            </View>
-           <Image 
+           <Image
               source={{ uri: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/143.png' }}
               style={styles.potdImage}
            />
@@ -395,7 +395,7 @@ export default function HomePageScreen({ navigation }: any) {
               <Ionicons name="refresh-circle" size={24} color="#2E7D32" />
             </TouchableOpacity>
           </View>
-          <FlatList 
+          <FlatList
             data={nearYouList}
             horizontal
             showsHorizontalScrollIndicator={false}
@@ -421,7 +421,7 @@ export default function HomePageScreen({ navigation }: any) {
                <Text style={{color: '#2E7D32', fontWeight: '600'}}>See Feed</Text>
              </TouchableOpacity>
            </View>
-           
+
            <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ paddingLeft: 20, paddingRight: 20 }}>
               {feedPosts.map((post) => (
                 <FeedCard key={post.id} item={post} />
@@ -440,8 +440,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#F5F6F8', // Slightly more modern gray
   },
   loadingContainer: {
-    flex: 1, 
-    justifyContent: 'center', 
+    flex: 1,
+    justifyContent: 'center',
     alignItems: 'center'
   },
   // --- HEADER ---
@@ -517,7 +517,7 @@ const styles = StyleSheet.create({
 
   // --- NEW: POKEMON OF THE DAY ---
   potdContainer: {
-    marginHorizontal: 20, marginBottom: 30, backgroundColor: '#3b4cca', borderRadius: 20, 
+    marginHorizontal: 20, marginBottom: 30, backgroundColor: '#3b4cca', borderRadius: 20,
     flexDirection: 'row', alignItems: 'center', padding: 20, position: 'relative', overflow: 'hidden'
   },
   potdTextContainer: { flex: 1, zIndex: 2 },
@@ -561,10 +561,10 @@ const styles = StyleSheet.create({
     shadowColor: "#000", shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.05, shadowRadius: 8, elevation: 3,
   },
   feedHeader: { flexDirection: 'row', marginBottom: 12 },
-  feedAvatarContainer: { 
-    width: 32, height: 32, borderRadius: 16, marginRight: 10, 
-    justifyContent: 'center', alignItems: 'center', 
-    backgroundColor: '#f0f0f0' 
+  feedAvatarContainer: {
+    width: 32, height: 32, borderRadius: 16, marginRight: 10,
+    justifyContent: 'center', alignItems: 'center',
+    backgroundColor: '#f0f0f0'
   },
   feedUsername: { fontSize: 14, fontWeight: '700', color: '#333' },
   feedTime: { fontSize: 11, color: '#999' },

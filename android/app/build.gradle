@@ -82,10 +82,15 @@ android {
     namespace "com.newpokedex"
     defaultConfig {
         applicationId "com.newpokedex"
-        minSdkVersion rootProject.ext.minSdkVersion
+//        minSdkVersion rootProject.ext.minSdkVersion
+        minSdkVersion 24   // VisionCamera requires 21+, your global is correct
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
+    }
+    // IMPORTANT FOR VisionCamera
+    packagingOptions {
+        pickFirst '**/libc++_shared.so'
     }
     signingConfigs {
         debug {
